@@ -10,14 +10,12 @@ _G.width = love.graphics.getWidth();
 _G.gold = 0
 
 function love.load()
-    table.insert(chars, 1, Char.new("Arqueiro"))
+    table.insert(chars, 1, Char.new("Arqueiro", 10))
     target = Target.new()
 end
 
 function love.update(dt)
-    if love.keyboard.isDown('a') then
-        chars[1]:shoot()
-    end
+    chars[1]:update(dt)
 end
 
 function love.draw()

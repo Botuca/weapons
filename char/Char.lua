@@ -1,15 +1,18 @@
 local love = require("love")
 local Projectile = require("projectile/Projectile")
 local Char = {}
+
 Char.__index = Char
 
-function Char.new(name)
+function Char.new(name, atk_speed)
     local self = setmetatable({}, Char)
 
     self.name = name
     self.x = 100
     self.y = _G.height - 100
+    self.atk_speed = 1 / atk_speed;
     self.projectiles = {}
+    self.alarm = 0
 
     return self
 end
@@ -24,13 +27,23 @@ function Char:draw()
 end
 
 function Char:update(dt)
-    for _, p in ipairs(self.projectiles) do
-        p:update(dt)
+    for i = #self.projectiles, 1, -1 do
+        self.projectiles[i]:update(dt)
+
+        if self.projectiles[i].x > _G.width then
+            table.remove(self.projectiles, i)
+        end
+    end
+
+    self.alarm = self.alarm + dt
+    if self.alarm >= self.atk_speed then
+        self:shoot()
+        self.alarm = 0
     end
 end
 
 function Char:shoot()
-    table.insert(projectiles, 1, Projectile.new(self.x, self.y))
+    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20))
 end
 
 return Char
