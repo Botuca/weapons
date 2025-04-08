@@ -10,16 +10,22 @@ _G.width = love.graphics.getWidth();
 _G.gold = 0
 
 function love.load()
-    table.insert(chars, 1, Char.new("Arqueiro", 10))
+    table.insert(chars, 1, Char.new("Arqueiro", 10, 100, _G.height - 100))
+    table.insert(chars, 2, Char.new("Ninja", 5, 150, _G.height - 150))
     target = Target.new()
 end
 
 function love.update(dt)
-    chars[1]:update(dt)
+    for i = 1, #chars, 1 do
+        chars[i]:update(dt)
+    end
 end
 
 function love.draw()
-    chars[1]:draw()
+    for i = 1, #chars, 1 do
+        chars[i]:draw()
+    end
+
     target:draw()
 end
 

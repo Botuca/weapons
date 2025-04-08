@@ -4,12 +4,12 @@ local Char = {}
 
 Char.__index = Char
 
-function Char.new(name, atk_speed)
+function Char.new(name, atk_speed, x, y)
     local self = setmetatable({}, Char)
 
     self.name = name
-    self.x = 100
-    self.y = _G.height - 100
+    self.x = x
+    self.y = y
     self.atk_speed = 1 / atk_speed;
     self.projectiles = {}
     self.alarm = 0
