@@ -4,7 +4,7 @@ local Char = {}
 
 Char.__index = Char
 
-function Char.new(name, atk_speed, x, y, target)
+function Char.new(name, x, y, atk_speed, target)
     local self = setmetatable({}, Char)
 
     self.name = name
@@ -20,7 +20,6 @@ end
 
 function Char:draw()
     love.graphics.rectangle('fill', self.x, self.y, 20, 50)
-    love.graphics.print(self.name, self.x - 15, self.y + 60)
 
     for i = 1, #self.projectiles, 1 do
         self.projectiles[i]:draw()
