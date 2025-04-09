@@ -7,12 +7,14 @@ local target = {}
 
 _G.height = love.graphics.getHeight();
 _G.width = love.graphics.getWidth();
-_G.gold = 0
+_G.player = {
+    gold = 0
+}
 
 function love.load()
-    table.insert(chars, 1, Char.new("Arqueiro", 10, 100, _G.height - 100))
-    table.insert(chars, 2, Char.new("Ninja", 5, 150, _G.height - 150))
     target = Target.new()
+    table.insert(chars, 1, Char.new("Arqueiro", 10, 100, _G.height - 100, target))
+    table.insert(chars, 2, Char.new("Ninja", 5, 150, _G.height - 150, target))
 end
 
 function love.update(dt)
@@ -22,11 +24,11 @@ function love.update(dt)
 end
 
 function love.draw()
+    target:draw()
     for i = 1, #chars, 1 do
         chars[i]:draw()
     end
-
-    target:draw()
+    love.graphics.print("Gold: " .._G.player.gold)
 end
 
 if arg[2] == "debug" then

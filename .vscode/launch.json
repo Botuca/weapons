@@ -11,14 +11,5 @@
             "args": [".", "debug"],
             "scriptRoots": [".", "src"]
         },
-        {
-            "name": "Release Love",
-            "type": "lua-local",
-            "request": "launch",
-            "program": {
-                "command": "love"
-            },
-            "args": ["."]
-        }
     ]
 }

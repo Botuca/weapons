@@ -4,7 +4,7 @@ local Char = {}
 
 Char.__index = Char
 
-function Char.new(name, atk_speed, x, y)
+function Char.new(name, atk_speed, x, y, target)
     local self = setmetatable({}, Char)
 
     self.name = name
@@ -13,6 +13,7 @@ function Char.new(name, atk_speed, x, y)
     self.atk_speed = 1 / atk_speed;
     self.projectiles = {}
     self.alarm = 0
+    self.target = target
 
     return self
 end
@@ -30,7 +31,7 @@ function Char:update(dt)
     for i = #self.projectiles, 1, -1 do
         self.projectiles[i]:update(dt)
 
-        if self.projectiles[i].x > _G.width then
+        if self.projectiles[i].x > _G.width or self.projectiles[i].hit then
             table.remove(self.projectiles, i)
         end
     end
@@ -43,7 +44,7 @@ function Char:update(dt)
 end
 
 function Char:shoot()
-    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20))
+    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20, self.target))
 end
 
 return Char

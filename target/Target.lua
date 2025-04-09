@@ -7,12 +7,13 @@ function Target.new()
 
     self.x = _G.width - 100
     self.y = _G.height - 75
+    self.radius = 25
 
     return self
 end
 
 function Target:draw()
-    love.graphics.circle("fill", self.x, self.y, 25);
+    love.graphics.circle("fill", self.x, self.y, self.radius);
 end
 
 return Target
