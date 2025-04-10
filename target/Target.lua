@@ -2,15 +2,17 @@ local love = require("love")
 local Target = {}
 Target.__index = Target
 
-function Target.new()
+function Target.new(x, y, radius)
     local self = setmetatable({}, Target)
 
-    self.x = _G.width - 100
-    self.y = _G.height - 75
-    self.radius = 25
-    self.ballBody = love.physics.newBody(world, self.x, self.y, "dynamic")
-    self.ballShape = love.physics.newCircleShape(25)
+    self.x = x
+    self.y = y
+    self.radius = radius
+    self.ballBody = love.physics.newBody(_G.world, self.x, self.y, "static")
+    self.ballShape = love.physics.newCircleShape(self.radius)
     self.ballFixture = love.physics.newFixture(self.ballBody, self.ballShape, 1)
+    self.ballFixture:setUserData(self)
+    self.type = 'target'
 
     return self
 end

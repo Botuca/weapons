@@ -27,23 +27,22 @@ function Char:draw()
 end
 
 function Char:update(dt)
-    for i = #self.projectiles, 1, -1 do
-        self.projectiles[i]:update(dt)
-
-        if self.projectiles[i].x > _G.width or self.projectiles[i].hit then
-            table.remove(self.projectiles, i)
-        end
-    end
-
     self.alarm = self.alarm + dt
     if self.alarm >= self.atk_speed then
         self:shoot()
+
+        for i = #self.projectiles, 1, -1 do
+            if self.projectiles[i].hit then
+                table.remove(self.projectiles, i)
+            end
+        end
+        
         self.alarm = 0
     end
 end
 
 function Char:shoot()
-    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20, self.target))
+    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20, self.target, 500))
 end
 
 return Char
