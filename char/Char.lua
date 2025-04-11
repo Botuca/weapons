@@ -4,7 +4,7 @@ local Char = {}
 
 Char.__index = Char
 
-function Char.new(name, x, y, atk_speed, target)
+function Char.new(name, target, x, y, atk_speed, projectile_speed)
     local self = setmetatable({}, Char)
 
     self.name = name
@@ -14,6 +14,7 @@ function Char.new(name, x, y, atk_speed, target)
     self.projectiles = {}
     self.alarm = 0
     self.target = target
+    self.projectile_speed = projectile_speed
 
     return self
 end
@@ -36,13 +37,13 @@ function Char:update(dt)
                 table.remove(self.projectiles, i)
             end
         end
-        
+
         self.alarm = 0
     end
 end
 
 function Char:shoot()
-    table.insert(self.projectiles, Projectile.new(self.x + 20, _G.height - self.y  + 20, self.target, 500))
+    table.insert(self.projectiles, Projectile.new(self.x + 20, _G.height - self.y  + 20, self.target, self.projectile_speed))
 end
 
 return Char

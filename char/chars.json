@@ -4,7 +4,15 @@
             "name": "Arqueiro",
             "x": 50,
             "y": 75,
-            "atk_speed": 1
+            "atk_speed": 5,
+            "projectile_speed": 500
+        },
+        {
+            "name": "Ninja",
+            "x": 100,
+            "y": 150,
+            "atk_speed": 10,
+            "projectile_speed": 300
         }
     ]
   }

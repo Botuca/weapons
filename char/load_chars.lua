@@ -10,7 +10,7 @@ function LoadChars.loadChars()
     local chars = {}
 
     for _, char in ipairs(decoded.chars or {}) do
-        table.insert(chars, Char.new(char.name, char.x, char.y, char.atk_speed, _G.target))
+        table.insert(chars, Char.new(char.name, _G.target, char.x, char.y, char.atk_speed, char.projectile_speed))
     end
 
     return chars

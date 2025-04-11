@@ -35,7 +35,7 @@ function love.update(dt)
     end
 end
 
-function love.draw()    
+function love.draw()
     love.graphics.rectangle("fill",
         groundBody:getX() - 400, groundBody:getY() - 25,
         _G.width, 50
@@ -48,8 +48,7 @@ function love.draw()
     end
 
     love.graphics.print("Gold: " .._G.player.gold)
-    Debugs:draw()
-
+    Debugs.draw()
 end
 
 ---@diagnostic disable-next-line: lowercase-global
