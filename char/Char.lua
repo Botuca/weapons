@@ -10,7 +10,7 @@ function Char.new(name, x, y, atk_speed, target)
     self.name = name
     self.x = x
     self.y = y
-    self.atk_speed = 1 / atk_speed;
+    self.atk_speed = atk_speed;
     self.projectiles = {}
     self.alarm = 0
     self.target = target
@@ -19,7 +19,7 @@ function Char.new(name, x, y, atk_speed, target)
 end
 
 function Char:draw()
-    love.graphics.rectangle('fill', self.x, self.y, 20, 50)
+    love.graphics.rectangle('fill', self.x, _G.height - self.y, 20, 50)
 
     for i = 1, #self.projectiles, 1 do
         self.projectiles[i]:draw()
@@ -28,7 +28,7 @@ end
 
 function Char:update(dt)
     self.alarm = self.alarm + dt
-    if self.alarm >= self.atk_speed then
+    if self.alarm >= 1 / self.atk_speed then
         self:shoot()
 
         for i = #self.projectiles, 1, -1 do
@@ -42,7 +42,7 @@ function Char:update(dt)
 end
 
 function Char:shoot()
-    table.insert(self.projectiles, Projectile.new(self.x + 20, self.y + 20, self.target, 500))
+    table.insert(self.projectiles, Projectile.new(self.x + 20, _G.height - self.y  + 20, self.target, 500))
 end
 
 return Char

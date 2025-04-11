@@ -1,10 +1,10 @@
 local love = require("love")
-local Char = require("char/Char")
 local Target = require("target/Target")
+local Save = require("save_load")
+local LoadChars = require("char/load_chars")
 
-local chars = {}
-local target = {}
-
+_G.target = {}
+_G.chars = {}
 _G.height = love.graphics.getHeight();
 _G.width = love.graphics.getWidth();
 _G.player = {
@@ -19,16 +19,18 @@ function love.load()
     _G.groundShape = love.physics.newRectangleShape(800, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
 
-    target = Target.new(_G.width - 50, _G.height - 50, 25)
+    _G.target = Target.new(_G.width - 50, _G.height - 50, 25)
+    _G.chars = LoadChars:loadChars()
 
-    table.insert(chars, 1, Char.new("Arqueiro", 50, _G.height - 75, 10, target))
+    Save:loadGame()
 end
 
 function love.update(dt)
+    dt = math.min(dt, 0.033)
     world:update(dt)
 
-    for i = 1, #chars, 1 do
-        chars[i]:update(dt)
+    for i = 1, #_G.chars, 1 do
+        _G.chars[i]:update(dt)
     end
 end
 
@@ -38,10 +40,10 @@ function love.draw()
         800, 50
     )
 
-    target:draw()
+    _G.target:draw()
 
-    for i = 1, #chars, 1 do
-        chars[i]:draw()
+    for i = 1, #_G.chars, 1 do
+        _G.chars[i]:draw()
     end
 
     love.graphics.print("Gold: " .._G.player.gold)
@@ -59,14 +61,16 @@ function beginContact(a, b, coll)
 
         local proj = objA.type == 'projectile' and objA or objB
 
-        -- Aumenta o gold
         _G.player.gold = _G.player.gold + 1
 
-        -- Marca o projétil como atingido
         proj.hit = true
-
-        -- Remove o corpo do projétil
         proj.projectileBody:destroy()
+    end
+end
+
+function love.keypressed(key)
+    if key == "s" then
+        Save:saveGame()
     end
 end
 
