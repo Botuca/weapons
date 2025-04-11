@@ -16,7 +16,7 @@ function love.load()
     _G.world:setCallbacks(beginContact)
 
     _G.groundBody = love.physics.newBody(_G.world, 400, _G.height, "static")
-    _G.groundShape = love.physics.newRectangleShape(800, 50)
+    _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
 
     _G.target = Target.new(_G.width - 50, _G.height - 50, 25)
@@ -37,7 +37,7 @@ end
 function love.draw()
     love.graphics.rectangle("fill",
         groundBody:getX() - 400, groundBody:getY() - 25,
-        800, 50
+        _G.width, 50
     )
 
     _G.target:draw()
