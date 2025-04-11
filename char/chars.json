@@ -1,0 +1,10 @@
+{
+    "chars": [
+        {
+            "name": "Arqueiro",
+            "x": 50,
+            "y": 75,
+            "atk_speed": 1
+        }
+    ]
+  }
