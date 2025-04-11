@@ -1,3 +1,4 @@
+local love = require("love")
 local json = require("lib.dkjson")
 local Char = require("char/Char")
 local LoadChars = require("char/load_chars")
