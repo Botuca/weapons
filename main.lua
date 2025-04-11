@@ -2,6 +2,7 @@ local love = require("love")
 local Target = require("target/Target")
 local Save = require("save_load")
 local LoadChars = require("char/load_chars")
+local Debugs = require("debugs/debugs")
 
 _G.target = {}
 _G.chars = {}
@@ -34,7 +35,7 @@ function love.update(dt)
     end
 end
 
-function love.draw()
+function love.draw()    
     love.graphics.rectangle("fill",
         groundBody:getX() - 400, groundBody:getY() - 25,
         _G.width, 50
@@ -47,6 +48,8 @@ function love.draw()
     end
 
     love.graphics.print("Gold: " .._G.player.gold)
+    Debugs:draw()
+
 end
 
 ---@diagnostic disable-next-line: lowercase-global
