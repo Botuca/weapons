@@ -13,7 +13,7 @@ function Debugs.draw()
             x = i * 150
         end
 
-        love.graphics.print("Char #" .. i, x, 60)
+        love.graphics.print("Char #" .. i, x, 50)
 
         local offset = 15
         for k, v in pairs(char) do
