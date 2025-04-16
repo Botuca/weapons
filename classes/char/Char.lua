@@ -1,5 +1,5 @@
 local love = require("love")
-local Projectile = require("projectile/Projectile")
+local Projectile = require("classes/projectile/Projectile")
 local Char = {}
 
 Char.__index = Char

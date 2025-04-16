@@ -1,7 +1,7 @@
 local love = require("love")
-local Target = require("target/Target")
+local Target = require("classes/target/Target")
 local Save = require("save_load")
-local LoadChars = require("char/load_chars")
+local LoadChars = require("classes/char/load_chars")
 local Debugs = require("debugs/debugs")
 
 _G.target = {}

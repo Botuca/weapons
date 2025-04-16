@@ -1,11 +1,11 @@
 local love = require("love")
 local json = require("lib.dkjson")
-local Char = require("char/Char")
+local Char = require("classes/char/Char")
 
 local LoadChars = {}
 
 function LoadChars.loadChars()
-    local data = love.filesystem.read("char/chars.json")
+    local data = love.filesystem.read("classes/char/chars.json")
     local decoded = json.decode(data)
     local chars = {}
 
