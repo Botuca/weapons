@@ -3,7 +3,9 @@ local Target = require("classes/target/Target")
 local Save = require("save_load")
 local LoadChars = require("classes/char/load_chars")
 local Debugs = require("debugs/debugs")
+local Background = require("background/background")
 
+_G.bg = {}
 _G.target = {}
 _G.chars = {}
 _G.height = love.graphics.getHeight();
@@ -13,21 +15,23 @@ _G.player = {
 }
 
 function love.load()
+    _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
     _G.world:setCallbacks(beginContact)
-
+    
     _G.groundBody = love.physics.newBody(_G.world, 400, _G.height, "static")
     _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
-
+    
     _G.target = Target.new(_G.width - 50, _G.height - 50, 25)
     _G.chars = LoadChars:loadChars()
-
+    
     Save:loadGame()
 end
 
 function love.update(dt)
     dt = math.min(dt, 0.033)
+    _G.bg:update(dt)
     world:update(dt)
 
     for i = 1, #_G.chars, 1 do
@@ -36,6 +40,7 @@ function love.update(dt)
 end
 
 function love.draw()
+    _G.bg:draw()
     love.graphics.rectangle("fill",
         groundBody:getX() - 400, groundBody:getY() - 25,
         _G.width, 50
