@@ -8,25 +8,9 @@ function Background.new()
     self.layers = {
         {
             type = "fullscreen",
-            image = love.graphics.newImage("assets/Clouds/Clouds8/1.png"),
+            image = love.graphics.newImage("assets/Clouds/sky_cloud.png"),
             x = 0,
-            y = 0,
-            speed = 0,
-            parallax = false
-        },
-        {
-            type = "fullscreen",
-            image = love.graphics.newImage("assets/Clouds/Clouds1/2.png"),
-            x = 0,
-            y = -80,
-            speed = 0,
-            parallax = false
-        },
-        {
-            type = "fullscreen",
-            image = love.graphics.newImage("assets/Clouds/Clouds1/4.png"),
-            x = 0,
-            y = -50,
+            y = -200,
             speed = 0,
             parallax = false
         },
