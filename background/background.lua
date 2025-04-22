@@ -10,22 +10,6 @@ function Background.new()
             type = "fullscreen",
             image = love.graphics.newImage("assets/Clouds/sky_cloud.png"),
             x = 0,
-            y = -200,
-            speed = 0,
-            parallax = false
-        },
-        {
-            type = "fullscreen",
-            image = love.graphics.newImage("assets/Nature/nature_1/3.png"),
-            x = 0,
-            y = -20,
-            speed = 0,
-            parallax = false
-        },
-        {
-            type = "fullscreen",
-            image = love.graphics.newImage("assets/Nature/nature_2/4.png"),
-            x = 0,
             y = 0,
             speed = 0,
             parallax = false
