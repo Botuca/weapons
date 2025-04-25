@@ -3,6 +3,7 @@ local love = require("love")
 local Debugs = {}
 
 function Debugs.draw()
+    love.graphics.setColor(0, 0, 0)
     for i, char in ipairs(_G.chars) do
         local y = 60
         local x = 0
@@ -21,6 +22,7 @@ function Debugs.draw()
             offset = offset + 15
         end
     end
+    love.graphics.setColor(1, 1, 1)
 end
 
 return Debugs
