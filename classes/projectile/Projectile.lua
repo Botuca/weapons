@@ -17,15 +17,16 @@ function Projectile.new(x, y, target, projectile_speed)
     self.speed = _G.width / (1 / self.projectile_speed)
     self.projectileBody:setLinearVelocity(self.speed, 0)
     self.type = 'projectile'
+    self.img = love.graphics.newImage("assets/arrows/1.png")
 
     return self
 end
 
 function Projectile:draw()
     if not self.projectileBody:isDestroyed() then
-        love.graphics.setColor(1, 0, 0)
-        love.graphics.rectangle("fill", self.projectileBody:getX(), self.projectileBody:getY(), 30, 5)
-        love.graphics.setColor(1, 1, 1)
+        local imgW = self.img:getWidth()
+        local imgH = self.img:getHeight()
+        love.graphics.draw(self.img, self.projectileBody:getX(), self.projectileBody:getY(), 0, .2, .15, imgW / 2, imgH / 2)
     end
 end
 
