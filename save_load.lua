@@ -17,7 +17,9 @@ function Save.createSaveData()
             x = _G.chars[i].x,
             y = _G.chars[i].y,
             atk_speed = _G.chars[i].atk_speed,
-            projectile_speed = _G.chars[i].projectile_speed
+            projectile_speed = _G.chars[i].projectile_speed,
+            crit_rate = _G.chars[i].crit_rate,
+            crit_dmg = _G.chars[i].crit_dmg
         })
     end
 
@@ -39,7 +41,7 @@ function Save.loadGame()
         _G.chars = {}
 
         for _, char in ipairs(decoded.chars or {}) do
-            table.insert(chars, Char.new(char.name, _G.target, char.x, char.y, char.atk_speed, char.projectile_speed))
+            table.insert(chars, Char.new(char.name, _G.target, char.x, char.y, char.atk_speed, char.projectile_speed, char.crit_rate, char.crit_dmg))
         end
 
         print("[LOAD] Jogo carregado.")
