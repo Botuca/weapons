@@ -23,7 +23,7 @@ function love.load()
     _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
 
-    _G.target = Target.new(_G.width - 50, _G.height - 50, 25)
+    _G.target = Target.new((_G.width / 2) - 50, _G.height - 90, 25)
     _G.chars = LoadChars:loadChars()
 
     Save:loadGame()
@@ -48,11 +48,13 @@ function love.draw()
     _G.bg:draw()
     _G.target:draw()
 
+
     for i = 1, #_G.chars, 1 do
         _G.chars[i]:draw()
     end
 
-    love.graphics.print("Gold: " .._G.player.gold)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.print("Gold: " .._G.player.gold, 10, 10)
     Debugs.draw()
 end
 

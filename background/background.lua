@@ -5,18 +5,44 @@ Background.__index = Background
 function Background.new()
     local self = setmetatable({}, Background)
 
-    self.layers = {
-        {
+    self.imgs = Background.createNewImages(self)
+    self.layers = Background.setLayers(self)
+
+    return self
+end
+
+function Background:setLayers()
+    local layers = {}
+
+    for i = 1, #self.imgs, 1 do
+        table.insert(layers, {
             type = "fullscreen",
-            image = love.graphics.newImage("assets/bg.jpg"),
+            image = self.imgs[i],
             x = 0,
             y = 0,
             speed = 0,
             parallax = false
-        },
-    }
+        })
+    end
 
-    return self
+    return layers
+end
+
+function Background:createNewImages()
+    local imgs = {}
+
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/01.png"))
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/02.png"))
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/03.png"))
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/04.png"))
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/05.png"))
+    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/06.png"))
+
+    for i = 1, #imgs, 1 do
+        imgs[i]:setFilter("nearest", "nearest")
+    end
+
+    return imgs
 end
 
 function Background:update(dt)

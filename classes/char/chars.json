@@ -2,17 +2,10 @@
     "chars": [
         {
             "name": "Arqueiro",
-            "x": 50,
-            "y": 75,
+            "x": 150,
+            "y": 110,
             "atk_speed": 0.4,
             "projectile_speed": 0.2
-        },
-        {
-            "name": "Ninja",
-            "x": 100,
-            "y": 150,
-            "atk_speed": 0.8,
-            "projectile_speed": 0.5
         }
     ]
   }
