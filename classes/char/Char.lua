@@ -4,7 +4,7 @@ local Char = {}
 
 Char.__index = Char
 
-function Char.new(name, target, x, y, atk_speed, projectile_speed)
+function Char.new(name, target, x, y, atk_speed, projectile_speed, crit_rate, crit_dmg)
     local self = setmetatable({}, Char)
 
     self.name = name
@@ -15,6 +15,8 @@ function Char.new(name, target, x, y, atk_speed, projectile_speed)
     self.time = 0
     self.target = target
     self.projectile_speed = projectile_speed
+    self.crit_rate = crit_rate
+    self.crit_dmg = crit_dmg
 
     return self
 end
@@ -29,11 +31,11 @@ function Char:draw()
     for i = 1, #self.projectiles, 1 do
         self.projectiles[i]:draw()
     end
-    
 end
 
 function Char:update(dt)
     self.time = self.time + dt
+
     if self.time >= 1 / self.atk_speed then
         self:shoot()
 
@@ -48,7 +50,15 @@ function Char:update(dt)
 end
 
 function Char:shoot()
-    table.insert(self.projectiles, Projectile.new(self.x + 20, _G.height - self.y  + 20, self.target, self.projectile_speed))
+    local is_crit_hit = Char.isCriticalHit(self)
+
+    table.insert(self.projectiles, Projectile.new(self.x + 20, _G.height - self.y  + 20, self.target, self.projectile_speed, is_crit_hit, self.crit_dmg))
+end
+
+function Char.isCriticalHit(self)
+    local chance = math.random() * 100
+
+    return chance < self.crit_rate
 end
 
 return Char

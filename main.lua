@@ -15,6 +15,7 @@ _G.player = {
 }
 
 function love.load()
+    math.randomseed(os.time())
     _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
     _G.world:setCallbacks(beginContact)
@@ -70,9 +71,12 @@ function beginContact(a, b, coll)
 
         local proj = objA.type == 'projectile' and objA or objB
 
-        _G.player.gold = _G.player.gold + 1
+        if proj.is_crit_hit then
+            _G.player.gold = (_G.player.gold + (1 * proj.crit_dmg / 100))
+        else
+            _G.player.gold = _G.player.gold + 1
+        end
 
-        proj.hit = true
         proj.projectileBody:destroy()
     end
 end

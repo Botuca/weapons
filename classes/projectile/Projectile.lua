@@ -2,14 +2,13 @@ local love = require("love")
 local Projectile = {}
 Projectile.__index = Projectile
 
-function Projectile.new(x, y, target, projectile_speed)
+function Projectile.new(x, y, target, projectile_speed, is_crit_hit, crit_dmg)
     local self = setmetatable({}, Projectile)
 
     self.x = x
     self.y = y
     self.projectile_speed = projectile_speed
     self.target = target
-    self.hit = false
     self.projectileBody = love.physics.newBody(_G.world, self.x, self.y, "dynamic")
     self.projectileShape = love.physics.newRectangleShape(30, 5)
     self.projectileFixture = love.physics.newFixture(self.projectileBody, self.projectileShape, 1)
@@ -18,6 +17,8 @@ function Projectile.new(x, y, target, projectile_speed)
     self.projectileBody:setLinearVelocity(self.speed, 0)
     self.type = 'projectile'
     self.img = love.graphics.newImage("assets/arrows/1.png")
+    self.is_crit_hit = is_crit_hit
+    self.crit_dmg = crit_dmg
 
     return self
 end
