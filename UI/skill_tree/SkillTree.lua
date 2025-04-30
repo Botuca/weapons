@@ -42,33 +42,38 @@ function SkillTree.new(x, y, radius)
 end
 
 function SkillTree.draw(self)
-    local width_st = 500
-    local height_st = 250
-    local x_st = _G.width - width_st
-    local offset_st = 30
-    local y_st = offset_st
+    local st_width = 500
+    local st_height = 250
+    local st_x = _G.width - st_width
+    local st_offset = 30
+    local st_y = st_offset
 
     love.graphics.setColor(0, 0, 0, 0.5)
-    love.graphics.rectangle("fill", x_st, y_st, width_st - offset_st, height_st, 10)
+    love.graphics.rectangle("fill", st_x, st_y, st_width - st_offset, st_height, 10)
     love.graphics.setColor(1, 1, 1)
 
     local offset_text = 20
     for i = 1, #self.skills, 1 do
-        local x_skill_name = x_st + offset_text
-        local y_skill_name = offset_text + i * 40
-        love.graphics.print(self.skills[i].name .. " (lvl: ".. self.skills[i].level ..")", x_skill_name, y_skill_name)
+        local skill_name_x = st_x + offset_text
+        local skill_name_y = offset_text + i * 40
+        love.graphics.print(self.skills[i].name .. " (lvl: ".. self.skills[i].level ..")", skill_name_x, skill_name_y)
 
-        local width_btn = 120
-        local height_btn = 30
-        local x_btn = x_st + 330
-        local y_btn = y_skill_name
+        local btn_width = 120
+        local btn_height = 30
+        local btn_x = st_x + 330
+        local btn_y = skill_name_y
         love.graphics.setColor(0, 0.65, 0)
-        love.graphics.rectangle("fill", x_btn, y_skill_name, width_btn, height_btn, 10)
+        love.graphics.rectangle("fill", btn_x, skill_name_y, btn_width, btn_height, 10)
         love.graphics.setColor(1, 1, 1)
 
-        local x_btn_text = x_btn + width_btn
-        local y_btn_text = y_btn + 3
-        love.graphics.print("BUY", x_btn_text, y_btn_text)
+        local btn_text = "BUY"
+        local font = love.graphics.getFont()
+        local btn_text_width = font:getWidth(btn_text)
+        local btn_text_height = font:getHeight()
+        local btn_text_x = btn_x + (btn_width - btn_text_width) / 2
+        local btn_text_y = btn_y + (btn_height - btn_text_height) / 2
+        
+        love.graphics.print("BUY", btn_text_x, btn_text_y)
     end
 end
 
