@@ -16,10 +16,10 @@ function Debugs.draw()
 
         love.graphics.print("Char #" .. i, x, 50)
 
-        local offset = 15
+        local offset = 20
         for k, v in pairs(char) do
             love.graphics.print(k .. ": " .. tostring(v), x, y + offset)
-            offset = offset + 15
+            offset = offset + 20
         end
     end
     love.graphics.setColor(1, 1, 1)

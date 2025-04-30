@@ -4,6 +4,7 @@ local Save = require("save_load")
 local LoadChars = require("classes/char/load_chars")
 local Debugs = require("debugs/debugs")
 local Background = require("background/background")
+local SkillTree = require("UI/skill_tree/SkillTree")
 
 _G.bg = {}
 _G.target = {}
@@ -16,8 +17,14 @@ _G.player = {
 
 function love.load()
     math.randomseed(os.time())
+
+    _G.font = love.graphics.newFont(20)
+    love.graphics.setFont(_G.font)
+
     _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
+    _G.skillTree = SkillTree.new()
+
     _G.world:setCallbacks(beginContact)
 
     _G.groundBody = love.physics.newBody(_G.world, 400, _G.height, "static")
@@ -48,6 +55,7 @@ function love.draw()
 
     _G.bg:draw()
     _G.target:draw()
+    _G.skillTree:draw()
 
 
     for i = 1, #_G.chars, 1 do
