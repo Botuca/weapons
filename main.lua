@@ -12,13 +12,15 @@ _G.chars = {}
 _G.height = love.graphics.getHeight();
 _G.width = love.graphics.getWidth();
 _G.player = {
-    gold = 0
+    gold = 0,
 }
 
 function love.load()
     math.randomseed(os.time())
 
+    _G.small_font = love.graphics.newFont(14)
     _G.font = love.graphics.newFont(20)
+    _G.large_font = love.graphics.newFont(40)
     love.graphics.setFont(_G.font)
 
     _G.bg = Background.new()
@@ -92,6 +94,12 @@ end
 function love.keypressed(key)
     if key == "s" then
         Save:saveGame()
+    end
+end
+
+function love.mousepressed(x, y, button)
+    if _G.skillTree then
+        _G.skillTree:mousepressed(x, y, button)
     end
 end
 
