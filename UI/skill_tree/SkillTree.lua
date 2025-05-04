@@ -45,9 +45,9 @@ end
 function SkillTree.draw(self)
     -- Draw skill tree box
     local skill_tree_width = 500
-    local skill_tree_height = 250
+    local skill_tree_height = 210
     local skill_tree_x = _G.width - skill_tree_width
-    local skill_tree_offset = 30
+    local skill_tree_offset = 10
     local skill_tree_y = skill_tree_offset
     local skill_tree_radius = 10
 
@@ -56,11 +56,13 @@ function SkillTree.draw(self)
     love.graphics.setColor(1, 1, 1)
 
     -- Draw upgrades
-    local offset_text = 20
+    local offset_text_box_x = skill_tree_offset + 5
+    local offset_text_box_y = skill_tree_offset + 13
+    local offset_text = 40
     for i = 1, #self.skills, 1 do
         -- Draw upgrades names and lvl 
-        local skill_name_x = skill_tree_x + offset_text
-        local skill_name_y = offset_text + i * 40
+        local skill_name_x = skill_tree_x + offset_text_box_x
+        local skill_name_y = offset_text_box_y + ((i - 1) * offset_text)
         love.graphics.print(self.skills[i].name .. " (lvl: ".. self.skills[i].level ..")", skill_name_x, skill_name_y)
 
         -- Draw buy button
@@ -99,7 +101,7 @@ function SkillTree.draw(self)
 
         -- Draw cost text
         local cost_text = string.format("$ %.2f", self.skills[i].cost)
-        local cost_text_x = skill_tree_x + (skill_tree_width / 1.8)
+        local cost_text_x = skill_tree_x + (skill_tree_width / 1.6)
         local cost_text_y = btn_text_y
 
         love.graphics.print(cost_text, cost_text_x, cost_text_y)
