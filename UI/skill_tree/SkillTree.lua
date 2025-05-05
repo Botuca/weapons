@@ -8,33 +8,48 @@ function SkillTree.new(x, y, radius)
     self.skills = {
         {
             name = "Gold/hit",
-            description = "0.2 increased gold per hit",
+            description = "1.0 increased gold per hit",
             level = 0,
-            cost = 10,00
+            cost = 10,00,
+            event = function()
+                _G.player.gold_per_hit = _G.player.gold_per_hit + 1
+            end
         },
         {
             name = "Atk. speed",
             description = "0.2 increased attack speed",
             level = 0,
-            cost = 10,00
+            cost = 10,00,
+            event = function (index)
+                _G.chars[index].atk_speed = _G.chars[index].atk_speed + 0.2
+            end
         },
         {
             name = "Proj. speed",
             description = "0.2 increased projectile speed",
             level = 0,
-            cost = 10,00
+            cost = 10,00,
+            event = function (index)
+                _G.chars[index].projectile_speed = _G.chars[index].projectile_speed + 0.2
+            end
         },
         {
             name = "Crit. rate",
             description = "0.2 increased critical rate",
             level = 0,
-            cost = 10,00
+            cost = 10,00,
+            event = function (index)
+                _G.chars[index].crit_rate = _G.chars[index].crit_rate + 0.2
+            end
         },
         {
             name = "Crit. damage",
             description = "5 increased critical damage",
             level = 0,
-            cost = 10,00
+            cost = 10,00,
+            event = function (index)
+                _G.chars[index].crit_dmg = _G.chars[index].crit_dmg + 5
+            end
         }
     }
     self.buttons  = {}
@@ -63,7 +78,7 @@ function SkillTree.draw(self)
         -- Draw upgrades names and lvl 
         local skill_name_x = skill_tree_x + offset_text_box_x
         local skill_name_y = offset_text_box_y + ((i - 1) * offset_text)
-        love.graphics.print(self.skills[i].name .. " (lvl: ".. self.skills[i].level ..")", skill_name_x, skill_name_y)
+        love.graphics.print(self.skills[i].name .. " (".. self.skills[i].level ..")", skill_name_x, skill_name_y)
 
         -- Draw buy button
         local btn_width = 60
@@ -121,6 +136,9 @@ function SkillTree:mousepressed(x, y, button)
 
                 skill.level = skill.level + 1
                 skill.cost = skill.cost * 1.5
+
+                local archer_index = 1
+                skill.event(archer_index)
             end
         end
     end
