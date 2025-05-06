@@ -12,6 +12,8 @@ function Target.new(x, y, radius)
     self.ballShape = love.physics.newCircleShape(self.radius)
     self.ballFixture = love.physics.newFixture(self.ballBody, self.ballShape, 1)
     self.ballFixture:setUserData(self)
+    self.ballFixture:setCategory(4)
+    self.ballFixture:setMask()
     self.type = 'target'
 
     return self

@@ -13,6 +13,8 @@ function Projectile.new(x, y, target, projectile_speed, is_crit_hit, crit_dmg)
     self.projectileShape = love.physics.newRectangleShape(30, 5)
     self.projectileFixture = love.physics.newFixture(self.projectileBody, self.projectileShape, 1)
     self.projectileFixture:setUserData(self)
+    self.projectileFixture:setCategory(2)
+    self.projectileFixture:setMask(2)
     self.speed = _G.width / (1 / self.projectile_speed)
     self.projectileBody:setLinearVelocity(self.speed, 0)
     self.type = 'projectile'

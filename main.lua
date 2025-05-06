@@ -4,6 +4,7 @@ local Save = require("save_load")
 local LoadChars = require("classes/char/load_chars")
 local Debugs = require("debugs/debugs")
 local Background = require("background/background")
+local SkillTree = require("UI/skill_tree/SkillTree")
 
 _G.bg = {}
 _G.target = {}
@@ -11,20 +12,29 @@ _G.chars = {}
 _G.height = love.graphics.getHeight();
 _G.width = love.graphics.getWidth();
 _G.player = {
-    gold = 0
+    gold = 0,
+    gold_per_hit = 1,
 }
 
 function love.load()
     math.randomseed(os.time())
+
+    _G.small_font = love.graphics.newFont(14)
+    _G.font = love.graphics.newFont(20)
+    _G.large_font = love.graphics.newFont(40)
+    love.graphics.setFont(_G.font)
+
     _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
+    _G.skillTree = SkillTree.new()
+
     _G.world:setCallbacks(beginContact)
 
     _G.groundBody = love.physics.newBody(_G.world, 400, _G.height, "static")
     _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
 
-    _G.target = Target.new((_G.width / 2) - 50, _G.height - 90, 25)
+    _G.target = Target.new((_G.width - 150) - 50, _G.height - 90, 25)
     _G.chars = LoadChars:loadChars()
 
     Save:loadGame()
@@ -48,6 +58,7 @@ function love.draw()
 
     _G.bg:draw()
     _G.target:draw()
+    _G.skillTree:draw()
 
 
     for i = 1, #_G.chars, 1 do
@@ -55,8 +66,14 @@ function love.draw()
     end
 
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print("Gold: " .._G.player.gold, 10, 10)
-    Debugs.draw()
+    love.graphics.print("Gold: " ..tonumber(string.format("%.2f", _G.player.gold)), 10, 10)
+    love.graphics.print("Gold per hit: " .._G.player.gold_per_hit, 10, 30)
+    love.graphics.print("Atk. speed: ".._G.chars[1].atk_speed, 10, 50)
+    love.graphics.print("Proj. speed: ".._G.chars[1].projectile_speed, 10, 70)
+    love.graphics.print("Crit rate: ".._G.chars[1].crit_rate.."%", 10, 90)
+    love.graphics.print("Crit damage: ".._G.chars[1].crit_dmg.."%", 10, 110)
+    love.graphics.setColor(1, 1, 1)
+    -- Debugs.draw()
 end
 
 ---@diagnostic disable-next-line: lowercase-global
@@ -72,9 +89,9 @@ function beginContact(a, b, coll)
         local proj = objA.type == 'projectile' and objA or objB
 
         if proj.is_crit_hit then
-            _G.player.gold = (_G.player.gold + (1 * proj.crit_dmg / 100))
+            _G.player.gold = (_G.player.gold + (_G.player.gold_per_hit * proj.crit_dmg / 100))
         else
-            _G.player.gold = _G.player.gold + 1
+            _G.player.gold = _G.player.gold + _G.player.gold_per_hit
         end
 
         proj.projectileBody:destroy()
@@ -84,6 +101,16 @@ end
 function love.keypressed(key)
     if key == "s" then
         Save:saveGame()
+    end
+
+    if key == "g" then
+        _G.player.gold = _G.player.gold + 1000
+    end
+end
+
+function love.mousepressed(x, y, button)
+    if _G.skillTree then
+        _G.skillTree:mousepressed(x, y, button)
     end
 end
 
