@@ -29,7 +29,7 @@ function Projectile:draw()
     if not self.projectileBody:isDestroyed() then
         local imgW = self.img:getWidth()
         local imgH = self.img:getHeight()
-        love.graphics.draw(self.img, self.projectileBody:getX(), self.projectileBody:getY(), 0, .2, .15, imgW / 2, imgH / 2)
+        love.graphics.draw(self.img, self.projectileBody:getX(), self.projectileBody:getY(), 0, .15, .10, imgW / 2, imgH / 2)
     end
 end
 

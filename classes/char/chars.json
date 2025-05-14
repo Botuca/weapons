@@ -3,7 +3,7 @@
         {
             "name": "Arqueiro",
             "x": 150,
-            "y": 110,
+            "y": 80,
             "atk_speed": 0.4,
             "projectile_speed": 0.2,
             "crit_rate": 5,
