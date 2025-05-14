@@ -5,7 +5,9 @@ local LoadChars = require("classes/char/load_chars")
 local Debugs = require("debugs/debugs")
 local Background = require("background/background")
 local SkillTree = require("UI/skill_tree/SkillTree")
+local Audio = require("audio")
 
+_G.audio = Audio.new()
 _G.bg = {}
 _G.target = {}
 _G.chars = {}
@@ -19,6 +21,7 @@ _G.player = {
 function love.load()
     math.randomseed(os.time())
 
+    _G.audio:load("wood_hit", "assets/sounds/wood_hit.wav")
     _G.small_font = love.graphics.newFont(14)
     _G.font = love.graphics.newFont(20)
     _G.large_font = love.graphics.newFont(40)
@@ -34,7 +37,7 @@ function love.load()
     _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
     _G.groundFixture = love.physics.newFixture(groundBody, groundShape)
 
-    _G.target = Target.new((_G.width - 150) - 50, _G.height - 90, 25)
+    _G.target = Target.new((_G.width - 450) - 50, _G.height - 75, 25)
     _G.chars = LoadChars:loadChars()
 
     Save:loadGame()
@@ -88,6 +91,7 @@ function beginContact(a, b, coll)
 
         local proj = objA.type == 'projectile' and objA or objB
 
+        audio:play("wood_hit")
         if proj.is_crit_hit then
             _G.player.gold = (_G.player.gold + (_G.player.gold_per_hit * proj.crit_dmg / 100))
         else
