@@ -6,6 +6,7 @@ local Debugs = require("debugs/debugs")
 local Background = require("background/background")
 local SkillTree = require("UI/skill_tree/SkillTree")
 local Audio = require("audio")
+local Hud = require("UI/hud/Hud")
 
 _G.audio = Audio.new()
 _G.bg = {}
@@ -17,6 +18,7 @@ _G.player = {
     gold = 0,
     gold_per_hit = 1,
 }
+_G.teste = 0;
 
 function love.load()
     math.randomseed(os.time())
@@ -26,6 +28,7 @@ function love.load()
     _G.font = love.graphics.newFont(20)
     _G.large_font = love.graphics.newFont(40)
     love.graphics.setFont(_G.font)
+    _G.hud = Hud.new()
 
     _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
@@ -47,6 +50,7 @@ function love.update(dt)
     dt = math.min(dt, 0.033)
     _G.bg:update(dt)
     world:update(dt)
+    _G.hud:update(dt)
 
     for i = 1, #_G.chars, 1 do
         _G.chars[i]:update(dt)
@@ -60,9 +64,9 @@ function love.draw()
     )
 
     _G.bg:draw()
+    _G.hud:draw()
     _G.target:draw()
     _G.skillTree:draw()
-
 
     for i = 1, #_G.chars, 1 do
         _G.chars[i]:draw()
@@ -77,6 +81,7 @@ function love.draw()
     love.graphics.print("Crit damage: ".._G.chars[1].crit_dmg.."%", 10, 110)
     love.graphics.setColor(1, 1, 1)
     -- Debugs.draw()
+    love.graphics.print(_G.teste, 700, 400)
 end
 
 ---@diagnostic disable-next-line: lowercase-global
@@ -116,6 +121,8 @@ function love.mousepressed(x, y, button)
     if _G.skillTree then
         _G.skillTree:mousepressed(x, y, button)
     end
+
+    _G.hud:mousepressed(x, y, button)
 end
 
 if arg[2] == "debug" then

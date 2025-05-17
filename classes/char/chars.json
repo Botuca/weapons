@@ -5,7 +5,7 @@
             "x": 150,
             "y": 80,
             "atk_speed": 0.4,
-            "projectile_speed": 0.2,
+            "projectile_speed": 0.3,
             "crit_rate": 5,
             "crit_dmg": 100
         }
