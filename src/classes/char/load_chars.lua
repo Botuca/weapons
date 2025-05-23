@@ -4,7 +4,7 @@ local Char = require("src/classes/char/Char")
 local LoadChars = {}
 
 function LoadChars.loadChars()
-    local data = love.filesystem.read("src/classes/char/chars.json")
+    local data = love.filesystem.read("data/chars.json")
     local decoded = json.decode(data)
     local chars = {}
 

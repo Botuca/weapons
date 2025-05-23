@@ -5,7 +5,7 @@ WeaponStore.__index = WeaponStore
 function WeaponStore.new()
     local self = setmetatable({}, WeaponStore)
 
-    self.weapons = GetWeapons.load("src/UI/hud/weapon_store/weapons.json")
+    self.weapons = GetWeapons.load("data/weapons.json")
 
     return self
 end
