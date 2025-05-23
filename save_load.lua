@@ -1,7 +1,7 @@
 local love = require("love")
-local json = require("lib.dkjson")
-local Char = require("classes/char/Char")
-local LoadChars = require("classes/char/load_chars")
+local json = require("lib/dkjson")
+local Char = require("src/classes/char/Char")
+local LoadChars = require("src/classes/char/load_chars")
 
 local Save = {}
 
@@ -37,11 +37,18 @@ function Save.loadGame()
         local data = love.filesystem.read("savegame.json")
         local decoded = json.decode(data)
 
-        _G.player.gold = decoded.gold or 0
-        _G.chars = {}
+        if decoded then
+            _G.player.gold = decoded.gold or 0
+            _G.chars = {}
 
-        for _, char in ipairs(decoded.chars or {}) do
-            table.insert(chars, Char.new(char.name, _G.target, char.x, char.y, char.atk_speed, char.projectile_speed, char.crit_rate, char.crit_dmg))
+            for _, char in ipairs(decoded.chars or {}) do
+                table.insert(chars, Char.new(char.name, _G.target, char.x, char.y, char.atk_speed, char.projectile_speed, char.crit_rate, char.crit_dmg))
+            end
+
+            print("[LOAD] Jogo carregado.")
+        else
+            -- handle the error, e.g., print an error message
+            print("Error loading save game data.")
         end
 
         print("[LOAD] Jogo carregado.")

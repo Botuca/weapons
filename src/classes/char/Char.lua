@@ -1,5 +1,5 @@
 local love = require("love")
-local Projectile = require("classes/projectile/Projectile")
+local Projectile = require("src/classes/projectile/Projectile")
 local Char = {}
 
 Char.__index = Char
@@ -17,7 +17,7 @@ function Char.new(name, target, x, y, atk_speed, projectile_speed, crit_rate, cr
     self.projectile_speed = projectile_speed
     self.crit_rate = crit_rate
     self.crit_dmg = crit_dmg
-    self.sprite = love.graphics.newImage("assets/chars/archer.png")
+    self.sprite = love.graphics.newImage("assets/images/chars/archer.png")
 
     return self
 end

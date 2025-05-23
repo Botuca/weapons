@@ -18,7 +18,7 @@ function Projectile.new(x, y, target, projectile_speed, is_crit_hit, crit_dmg)
     self.speed = _G.width / (1 / self.projectile_speed)
     self.projectileBody:setLinearVelocity(self.speed, 0)
     self.type = 'projectile'
-    self.img = love.graphics.newImage("assets/arrows/1.png")
+    self.img = love.graphics.newImage("assets/images/weapons/arrow.png")
     self.is_crit_hit = is_crit_hit
     self.crit_dmg = crit_dmg
 

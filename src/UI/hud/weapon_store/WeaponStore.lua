@@ -1,11 +1,11 @@
-local GetWeapons = require("UI/hud/weapon_store/get_weapons")
+local GetWeapons = require("src/UI/hud/weapon_store/get_weapons")
 local WeaponStore = {}
 WeaponStore.__index = WeaponStore
 
 function WeaponStore.new()
     local self = setmetatable({}, WeaponStore)
 
-    self.weapons = GetWeapons.load("UI/hud/weapon_store/weapons.json")
+    self.weapons = GetWeapons.load("data/weapons.json")
 
     return self
 end
