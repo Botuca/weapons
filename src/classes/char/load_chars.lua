@@ -1,4 +1,4 @@
-local json = require("lib.dkjson")
+local json = require("lib/bdkjson")
 local Char = require("src/classes/char/Char")
 
 local LoadChars = {}
