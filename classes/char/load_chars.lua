@@ -1,4 +1,3 @@
-local love = require("love")
 local json = require("lib.dkjson")
 local Char = require("classes/char/Char")
 
