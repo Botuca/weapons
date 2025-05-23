@@ -18,7 +18,6 @@ _G.player = {
     gold = 0,
     gold_per_hit = 1,
 }
-_G.teste = 0;
 
 function love.load()
     math.randomseed(os.time())
@@ -81,7 +80,6 @@ function love.draw()
     love.graphics.print("Crit damage: ".._G.chars[1].crit_dmg.."%", 10, 110)
     love.graphics.setColor(1, 1, 1)
     -- Debugs.draw()
-    love.graphics.print(_G.teste, 700, 400)
 end
 
 ---@diagnostic disable-next-line: lowercase-global
