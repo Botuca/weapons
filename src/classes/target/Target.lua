@@ -15,7 +15,7 @@ function Target.new(x, y, radius)
     self.ballFixture:setCategory(4)
     self.ballFixture:setMask()
     self.type = 'target'
-    self.sprite = love.graphics.newImage("assets/target.png")
+    self.sprite = love.graphics.newImage("assets/images/targets/target.png")
 
     return self
 end

@@ -1,5 +1,5 @@
-local Button = require("UI/hud/Button")
-local WeaponStore = require("UI/hud/weapon_store/WeaponStore")
+local Button = require("src/UI/hud/Button")
+local WeaponStore = require("src/UI/hud/weapon_store/WeaponStore")
 local Hud = {}
 Hud.__index = Hud
 

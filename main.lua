@@ -1,12 +1,12 @@
 local love = require("love")
-local Target = require("classes/target/Target")
+local Target = require("src/classes/target/Target")
 local Save = require("save_load")
-local LoadChars = require("classes/char/load_chars")
+local LoadChars = require("src/classes/char/load_chars")
 local Debugs = require("debugs/debugs")
-local Background = require("background/background")
-local SkillTree = require("UI/skill_tree/SkillTree")
+local Background = require("src/UI/background/background")
+local SkillTree = require("src/UI/skill_tree/SkillTree")
 local Audio = require("audio")
-local Hud = require("UI/hud/Hud")
+local Hud = require("src/UI/hud/Hud")
 
 _G.audio = Audio.new()
 _G.bg = {}

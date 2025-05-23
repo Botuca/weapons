@@ -31,12 +31,12 @@ end
 function Background:createNewImages()
     local imgs = {}
 
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/01.png"))
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/02.png"))
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/03.png"))
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/04.png"))
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/05.png"))
-    table.insert(imgs, love.graphics.newImage("assets/bg/PNG/06.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/01.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/02.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/03.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/04.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/05.png"))
+    table.insert(imgs, love.graphics.newImage("assets/images/bg/PNG/06.png"))
 
     for i = 1, #imgs, 1 do
         imgs[i]:setFilter("nearest", "nearest")
