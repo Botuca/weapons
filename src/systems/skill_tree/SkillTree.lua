@@ -1,60 +1,22 @@
-local love = require("love")
+local PassivesTree = require("data.passives_tree")
 local SkillTree = {}
 SkillTree.__index = SkillTree
 
 function SkillTree.new(x, y, radius)
     local self = setmetatable({}, SkillTree)
 
-    self.skills = {
-        {
-            name = "Gold/hit",
-            description = "1.0 increased gold per hit",
-            level = 0,
-            cost = 10,00,
-            event = function()
-                _G.player.gold_per_hit = _G.player.gold_per_hit + 1
-            end
-        },
-        {
-            name = "Atk. speed",
-            description = "0.2 increased attack speed",
-            level = 0,
-            cost = 10,00,
-            event = function (index)
-                _G.chars[index].atk_speed = _G.chars[index].atk_speed + 0.2
-            end
-        },
-        {
-            name = "Proj. speed",
-            description = "0.2 increased projectile speed",
-            level = 0,
-            cost = 10,00,
-            event = function (index)
-                _G.chars[index].projectile_speed = _G.chars[index].projectile_speed + 0.2
-            end
-        },
-        {
-            name = "Crit. rate",
-            description = "0.2 increased critical rate",
-            level = 0,
-            cost = 10,00,
-            event = function (index)
-                _G.chars[index].crit_rate = _G.chars[index].crit_rate + 0.2
-            end
-        },
-        {
-            name = "Crit. damage",
-            description = "5 increased critical damage",
-            level = 0,
-            cost = 10,00,
-            event = function (index)
-                _G.chars[index].crit_dmg = _G.chars[index].crit_dmg + 5
-            end
-        }
-    }
     self.buttons  = {}
 
     return self
+end
+
+function SkillTree.applyAllSkills(run_data, player_index)
+    for skill_id, level in pairs(run_data.skill_tree_levels) do
+        local skill = PassivesTree[skill_id]
+        if skill and skill.apply then
+            skill.apply(level, player_index)
+        end
+    end
 end
 
 function SkillTree.draw(self)
@@ -74,7 +36,7 @@ function SkillTree.draw(self)
     local offset_text_box_x = skill_tree_offset + 5
     local offset_text_box_y = skill_tree_offset + 13
     local offset_text = 40
-    for i = 1, #self.skills, 1 do
+    for i = 1, #PassivesTree, 1 do
         -- Draw upgrades names and lvl 
         local skill_name_x = skill_tree_x + offset_text_box_x
         local skill_name_y = offset_text_box_y + ((i - 1) * offset_text)

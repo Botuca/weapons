@@ -1,0 +1,11 @@
+{
+  "permanent_data": {},
+  "run_data": {
+    "gold": 500,
+    "current_weapon": "BOW",
+    "skill_tree_levels": {
+      "gold_per_hit": 0,
+      "atk_speed": 0
+    }
+  }
+}

@@ -4,7 +4,7 @@ local Save = require("save_load")
 local LoadChars = require("src/classes/char/load_chars")
 local Debugs = require("debugs/debugs")
 local Background = require("src/UI/background/background")
-local SkillTree = require("src/UI/skill_tree/SkillTree")
+local SkillTree = require("src/systems/skill_tree/SkillTree")
 local Audio = require("audio")
 local Hud = require("src/UI/hud/Hud")
 
@@ -23,17 +23,18 @@ function love.load()
     math.randomseed(os.time())
 
     _G.audio:load("wood_hit", "assets/sounds/wood_hit.wav")
+
     _G.small_font = love.graphics.newFont(14)
     _G.font = love.graphics.newFont(20)
     _G.large_font = love.graphics.newFont(40)
     love.graphics.setFont(_G.font)
+
     _G.hud = Hud.new()
 
     _G.bg = Background.new()
     _G.world = love.physics.newWorld(0, 0, true)
-    _G.skillTree = SkillTree.new()
-
     _G.world:setCallbacks(beginContact)
+    _G.skillTree = SkillTree.new()
 
     _G.groundBody = love.physics.newBody(_G.world, 400, _G.height, "static")
     _G.groundShape = love.physics.newRectangleShape(_G.width, 50)
@@ -48,7 +49,7 @@ end
 function love.update(dt)
     dt = math.min(dt, 0.033)
     _G.bg:update(dt)
-    world:update(dt)
+    _G.world:update(dt)
     _G.hud:update(dt)
 
     for i = 1, #_G.chars, 1 do
@@ -58,7 +59,7 @@ end
 
 function love.draw()
     love.graphics.rectangle("fill",
-        groundBody:getX() - 400, groundBody:getY() - 25,
+        _G.groundBody:getX() - 400, _G.groundBody:getY() - 25,
         _G.width, 50
     )
 
@@ -74,10 +75,10 @@ function love.draw()
     love.graphics.setColor(0, 0, 0)
     love.graphics.print("Gold: " ..tonumber(string.format("%.2f", _G.player.gold)), 10, 10)
     love.graphics.print("Gold per hit: " .._G.player.gold_per_hit, 10, 30)
-    love.graphics.print("Atk. speed: ".._G.chars[1].atk_speed, 10, 50)
-    love.graphics.print("Proj. speed: ".._G.chars[1].projectile_speed, 10, 70)
-    love.graphics.print("Crit rate: ".._G.chars[1].crit_rate.."%", 10, 90)
-    love.graphics.print("Crit damage: ".._G.chars[1].crit_dmg.."%", 10, 110)
+    --love.graphics.print("Atk. speed: ".._G.chars[1].atk_speed, 10, 50)
+    --love.graphics.print("Proj. speed: ".._G.chars[1].projectile_speed, 10, 70)
+    --love.graphics.print("Crit rate: ".._G.chars[1].crit_rate.."%", 10, 90)
+    --love.graphics.print("Crit damage: ".._G.chars[1].crit_dmg.."%", 10, 110)
     love.graphics.setColor(1, 1, 1)
     -- Debugs.draw()
 end
@@ -94,7 +95,7 @@ function beginContact(a, b, coll)
 
         local proj = objA.type == 'projectile' and objA or objB
 
-        audio:play("wood_hit")
+        _G.audio:play("wood_hit")
         if proj.is_crit_hit then
             _G.player.gold = (_G.player.gold + (_G.player.gold_per_hit * proj.crit_dmg / 100))
         else
@@ -111,7 +112,7 @@ function love.keypressed(key)
     end
 
     if key == "g" then
-        _G.player.gold = _G.player.gold + 1000
+        _G.player.gold = _G.player.gold + 100000
     end
 end
 

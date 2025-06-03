@@ -3,14 +3,12 @@
         {
             "index": 0,
             "name": "Shuriken",
-            "price": 500,
-            "buy": false
+            "price": 500
         },
         {
             "index": 1,
             "name": "Axe",
-            "price": 1000,
-            "buy": false
+            "price": 1000
         }
     ]
 }
